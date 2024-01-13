@@ -2,9 +2,9 @@ import { FormEvent, useState } from 'react';
 import { Button } from '../ui/button';
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger
@@ -18,19 +18,20 @@ const AddTodoModal = () => {
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		console.log(task, description);
+		console.log({ task, description });
 	};
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button className="bg-gradient-to-tr  from-gray-800 to-gray-600 text-white rounded-[4px]">Add Todo</Button>
 			</DialogTrigger>
-			<form onSubmit={onSubmit}>
-				<DialogContent className="sm:max-w-[425px]">
-					<DialogHeader>
-						<DialogTitle>Add Todo</DialogTitle>
-						<DialogDescription>Add a new todo to your list.</DialogDescription>
-					</DialogHeader>
+			<DialogContent className="sm:max-w-[425px]">
+				<DialogHeader>
+					<DialogTitle>Add Todo</DialogTitle>
+					<DialogDescription>Add a new todo to your list.</DialogDescription>
+				</DialogHeader>
+				<hr />
+				<form onSubmit={onSubmit}>
 					<div onSubmit={onSubmit} className="grid gap-4 py-4">
 						<div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="task" className="text-right">
@@ -51,10 +52,14 @@ const AddTodoModal = () => {
 						</div>
 					</div>
 					<div>
-						<Button type="submit">Save changes</Button>
+						<DialogClose asChild>
+							<Button type="submit" className="ml-auto block">
+								Save changes
+							</Button>
+						</DialogClose>
 					</div>
-				</DialogContent>
-			</form>
+				</form>
+			</DialogContent>
 		</Dialog>
 	);
 };
