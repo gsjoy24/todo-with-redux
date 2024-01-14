@@ -26,6 +26,7 @@ const TodoContainer = () => {
 							<p className="font-semibold">Title</p>
 							<p>Time</p>
 							<p>Description</p>
+							<p>State</p>
 							<div className="space-x-3">
 								<div></div>
 								<div>Action</div>
