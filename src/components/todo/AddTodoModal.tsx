@@ -21,8 +21,10 @@ const AddTodoModal = () => {
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		dispatch(addTodo({ title: task, description }));
+		const id = Math.random().toString(36).slice(2, 7);
+		dispatch(addTodo({ id, title: task, description }));
 	};
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

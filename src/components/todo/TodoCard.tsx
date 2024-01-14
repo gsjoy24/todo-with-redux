@@ -1,13 +1,13 @@
-import React from 'react';
+
 import { Button } from '../ui/button';
 
-const TodoCard = () => {
+const TodoCard = ({todo}) => {
 	return (
 		<div className="bg-white rounded-xl flex justify-between items-center py-2 px-4">
 			<input type="checkbox" name="" id="" />
-			<p className="font-semibold">Todo Title</p>
+			<p className="font-semibold">{todo.title}</p>
 			<p>Time</p>
-			<p>Description</p>
+			<p>{todo.description}</p>
 			<div className="space-x-3">
 				<Button className="p-2">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
