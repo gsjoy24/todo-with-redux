@@ -25,6 +25,11 @@ const todoSlice = createSlice({
 		toggleComplete: (state, action: PayloadAction<string>) => {
 			const task = state.todos.find((todo) => todo.id === action.payload);
 			task!.isCompleted = !task?.isCompleted;
+			const indexToMove = state.todos.findIndex((todo) => todo.id === action.payload);
+			if (indexToMove !== -1) {
+				const movedTask = state.todos.splice(indexToMove, 1)[0];
+				state.todos.push(movedTask);
+			}
 		}
 	}
 });

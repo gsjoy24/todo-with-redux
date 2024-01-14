@@ -9,9 +9,6 @@ type TTodo = {
 };
 const TodoCard = ({ todo }: { todo: TTodo }) => {
 	const dispatch = useAppDispatch();
-	// const handleComplete = () => {
-	// 	dispatch(toggleComplete(todo.id));
-	// };
 
 	return (
 		<div className="bg-white rounded-xl flex justify-between items-center py-2 px-4">
