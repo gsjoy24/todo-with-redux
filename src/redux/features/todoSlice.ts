@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 type TTodo = {
-	id: string;
+	_id?: string;
 	title: string;
 	description: string;
 	isCompleted?: boolean;
+	priority: string;
 };
 type TInitialState = {
 	todos: TTodo[];
@@ -20,12 +21,12 @@ const todoSlice = createSlice({
 			state.todos.push({ ...action.payload, isCompleted: false });
 		},
 		removeTodo: (state, action: PayloadAction<string>) => {
-			state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+			state.todos = state.todos.filter((todo) => todo._id !== action.payload);
 		},
 		toggleComplete: (state, action: PayloadAction<string>) => {
-			const task = state.todos.find((todo) => todo.id === action.payload);
+			const task = state.todos.find((todo) => todo._id === action.payload);
 			task!.isCompleted = !task?.isCompleted;
-			const indexToMove = state.todos.findIndex((todo) => todo.id === action.payload);
+			const indexToMove = state.todos.findIndex((todo) => todo._id === action.payload);
 			if (indexToMove !== -1) {
 				const movedTask = state.todos.splice(indexToMove, 1)[0];
 				state.todos.push(movedTask);

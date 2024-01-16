@@ -2,24 +2,34 @@ import { useAppDispatch } from '@/redux/hook';
 import { Button } from '../ui/button';
 import { removeTodo, toggleComplete } from '@/redux/features/todoSlice';
 type TTodo = {
-	id: string;
+	_id: string;
 	title: string;
 	description: string;
 	isCompleted?: boolean;
+	priority: string;
 };
 const TodoCard = ({ todo }: { todo: TTodo }) => {
 	const dispatch = useAppDispatch();
 
 	return (
 		<div className="bg-white rounded-xl flex justify-between items-center py-2 px-4">
-			<input type="checkbox" name="" id="" onChange={() => dispatch(toggleComplete(todo.id))} />
-			<p className="font-semibold">{todo.title}</p>
-			<p>Time</p>
-			<p>{todo.description}</p>
-			<p>{todo.isCompleted ? <p className="text-green-500">completed</p> : <p className="text-red-500">pending</p>}</p>
+			<input className="mr-3" type="checkbox" name="" id="" onChange={() => dispatch(toggleComplete(todo._id))} />
+			<p className="font-semibold flex-1">{todo.title}</p>
+			<div className="flex-1 flex items-center gap-2">
+				<div
+					className={`size-3 rounded-full ${
+						todo.priority === 'High' ? 'bg-red-500' : todo.priority === 'Medium' ? 'bg-yellow-500' : 'bg-green-500'
+					}`}
+				></div>
+				<p>{todo.priority}</p>
+			</div>
+			<p className="flex-1">
+				{todo.isCompleted ? <p className="text-green-500">completed</p> : <p className="text-red-500">pending</p>}
+			</p>
+			<p className="flex-[2]">{todo.description}</p>
 			<div className="space-x-3">
 				{/* remove */}
-				<Button className="p-2" onClick={() => dispatch(removeTodo(todo.id))}>
+				<Button className="p-2" onClick={() => dispatch(removeTodo(todo._id))}>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4">
 						<path
 							fillRule="evenodd"

@@ -3,9 +3,15 @@ import AddTodoModal from './AddTodoModal';
 import TodoCard from './TodoCard';
 import TodoFilter from './TodoFilter';
 import { Button } from '../ui/button';
+import { useGetTodosQuery } from '@/redux/api/api';
 
 const TodoContainer = () => {
-	const { todos } = useAppSelector((state) => state.todos);
+	// const { todos } = useAppSelector((state) => state.todos);
+	const { data: todos, isLoading, isError } = useGetTodosQuery(null);
+
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
 	return (
 		<div>
 			{/* buttons */}
@@ -15,25 +21,14 @@ const TodoContainer = () => {
 			</div>
 			{/* todo list */}
 			<div className="bg-gray-800 p-5 flex flex-col justify-center gap-3">
-				{todos.length === 0 ? (
+				{todos && todos.length === 0 ? (
 					<div className="bg-gray-300 text-xl rounded-xl font-semibold p-2 flex justify-center items-center">
 						<p className="text-gray-800">There is no task pending!</p>
 					</div>
 				) : (
 					<>
-						<div className="bg-white rounded-xl flex justify-between items-center py-2 px-4">
-							<input type="checkbox" name="" id="" />
-							<p className="font-semibold">Title</p>
-							<p>Time</p>
-							<p>Description</p>
-							<p>State</p>
-							<div className="space-x-3">
-								<div></div>
-								<div>Action</div>
-							</div>
-						</div>
 						{todos.map((todo) => {
-							return <TodoCard key={todo.id} todo={todo} />;
+							return <TodoCard key={todo._id} todo={todo} />;
 						})}
 					</>
 				)}
