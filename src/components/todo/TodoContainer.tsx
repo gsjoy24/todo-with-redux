@@ -4,10 +4,12 @@ import TodoCard from './TodoCard';
 import TodoFilter from './TodoFilter';
 import { useGetTodosQuery } from '@/redux/api/api';
 import TTodo from '@/interfaces/TTodo';
+import { useState } from 'react';
 
 const TodoContainer = () => {
 	// const { todos } = useAppSelector((state) => state.todos);
-	const { data: todos, isLoading, isError } = useGetTodosQuery(null);
+	const [priority, setPriority] = useState('');
+	const { data: todos, isLoading, isError } = useGetTodosQuery(priority);
 
 	if (isLoading) {
 		return <div>Loading...</div>;
@@ -17,7 +19,7 @@ const TodoContainer = () => {
 			{/* buttons */}
 			<div className='bg-slate-400 p-2 space-x-2'>
 				<AddTodoModal />
-				<TodoFilter />
+				<TodoFilter priority={priority} setPriority={setPriority} />
 			</div>
 			{/* todo list */}
 			<div className='bg-gray-800 p-5 flex flex-col justify-center gap-3'>

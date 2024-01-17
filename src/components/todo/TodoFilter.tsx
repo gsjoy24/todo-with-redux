@@ -10,20 +10,20 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 
-const TodoFilter = () => {
-	const [position, setPosition] = React.useState('bottom');
+const TodoFilter = ({ priority, setPriority }: { priority: string; setPriority: (value: string) => void }) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button className="bg-gradient-to-tr  from-gray-800 to-gray-600 text-white rounded-[4px]">Filter</Button>
+				<Button className='bg-gradient-to-tr  from-gray-800 to-gray-600 text-white rounded-[4px]'>Filter</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-56 bg-white">
+			<DropdownMenuContent className='w-56 bg-white'>
 				<DropdownMenuLabel>Filter by priority</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-					<DropdownMenuRadioItem value="high">High</DropdownMenuRadioItem>
-					<DropdownMenuRadioItem value="medium">Medium</DropdownMenuRadioItem>
-					<DropdownMenuRadioItem value="low">Low</DropdownMenuRadioItem>
+				<DropdownMenuRadioGroup value={priority} onValueChange={setPriority}>
+					<DropdownMenuRadioItem value=''>All</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value='High'>High</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value='Medium'>Medium</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value='Low'>Low</DropdownMenuRadioItem>
 				</DropdownMenuRadioGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>
