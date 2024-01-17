@@ -1,17 +1,29 @@
 import { useAppDispatch } from '@/redux/hook';
 import { Button } from '../ui/button';
-import { removeTodo, toggleComplete } from '@/redux/features/todoSlice';
+// import { removeTodo, toggleComplete } from '@/redux/features/todoSlice';
 import TTodo from '@/interfaces/TTodo';
-import { useDeleteTodoMutation } from '@/redux/api/api';
+import { useDeleteTodoMutation, useUpdateTodoMutation } from '@/redux/api/api';
 
 const TodoCard = ({ todo }: { todo: TTodo }) => {
-	// ! for local state with redux
 	const dispatch = useAppDispatch();
-	const [deleteTodo, { data, isLoading, isError, isSuccess }] = useDeleteTodoMutation();
+	const [deleteTodo] = useDeleteTodoMutation();
+
+	const [UpdateTodo] = useUpdateTodoMutation();
+	const toggleComplete = (id: string) => {
+		const data = { isCompleted: !todo.isCompleted };
+		UpdateTodo({ id, data });
+	};
 
 	return (
 		<div className='bg-white rounded-xl flex justify-between items-center py-2 px-4'>
-			<input className='mr-3' type='checkbox' name='' id='' onChange={() => dispatch(toggleComplete(todo._id))} />
+			<input
+				className='mr-3'
+				type='checkbox'
+				name=''
+				id=''
+				onChange={() => toggleComplete(todo._id)}
+				checked={todo.isCompleted}
+			/>
 			<p className='font-semibold flex-1'>{todo.title}</p>
 			<div className='flex-1 flex items-center gap-2'>
 				<div
