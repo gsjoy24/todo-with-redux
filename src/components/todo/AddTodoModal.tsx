@@ -11,20 +11,34 @@ import {
 } from '../ui/dialog';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { useAppDispatch } from '@/redux/hook';
+
 import { addTodo } from '@/redux/features/todoSlice';
+import { useAddTodoMutation } from '@/redux/api/api';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { timeStamp } from 'console';
 
 const AddTodoModal = () => {
 	const [task, setTask] = useState('');
 	const [priority, setPriority] = useState('');
 	const [description, setDescription] = useState('');
-	const dispatch = useAppDispatch();
+	// ! for local state with redux
+	// const dispatch = useAppDispatch();
+
+
+	// * for server
+	const [addTodo, { data, isLoading, isError, isSuccess }] = useAddTodoMutation();
+	console.log({data, isLoading, isError, isSuccess});
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
+
+		// ! for local state with redux
 		// const id = Math.random().toString(36).slice(2, 7);
 		// dispatch(addTodo({ id, title: task, description }));
-		dispatch(addTodo({ title: task, priority, description }));
+		// dispatch(addTodo({ title: task, priority, description }));
+
+		// * for server
+		addTodo({ title: task, priority, description, isCompleted: false, timeStamp: new Date() });
 	};
 
 	return (
@@ -49,15 +63,19 @@ const AddTodoModal = () => {
 						</div>
 						{/* priority */}
 						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="priority" className="text-right">
+							<Label className="text-right">
 								Priority
 							</Label>
-							<Input
-								onBlur={(e) => setPriority(e.target.value)}
-								id="priority"
-								placeholder="Priority"
-								className="col-span-3"
-							/>
+							<Select onValueChange={(value) => setPriority(value)}>
+								<SelectTrigger className="w-[280px]">
+									<SelectValue placeholder="Priority" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="high">High</SelectItem>
+									<SelectItem value="medium">Medium</SelectItem>
+									<SelectItem value="low">Low</SelectItem>
+								</SelectContent>
+							</Select>
 						</div>
 						{/* description */}
 						<div className="grid grid-cols-4 items-center gap-4">
