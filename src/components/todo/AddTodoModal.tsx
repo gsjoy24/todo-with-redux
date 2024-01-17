@@ -16,6 +16,7 @@ import { addTodo } from '@/redux/features/todoSlice';
 import { useAddTodoMutation } from '@/redux/api/api';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { timeStamp } from 'console';
+import toast from 'react-hot-toast';
 
 const AddTodoModal = () => {
 	const [task, setTask] = useState('');
@@ -24,11 +25,13 @@ const AddTodoModal = () => {
 	// ! for local state with redux
 	// const dispatch = useAppDispatch();
 
-
 	// * for server
 	const [addTodo, { data, isLoading, isError, isSuccess }] = useAddTodoMutation();
-	console.log({data, isLoading, isError, isSuccess});
 
+	if (isSuccess) {
+		console.log({ isSuccess });
+		toast.success('Todo added successfully');
+	}
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault();
 
@@ -44,55 +47,53 @@ const AddTodoModal = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className="bg-gradient-to-tr  from-gray-800 to-gray-600 text-white rounded-[4px]">Add Todo</Button>
+				<Button className='bg-gradient-to-tr  from-gray-800 to-gray-600 text-white rounded-[4px]'>Add Todo</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className='sm:max-w-[425px]'>
 				<DialogHeader>
 					<DialogTitle>Add Todo</DialogTitle>
 					<DialogDescription>Add a new todo to your list.</DialogDescription>
 				</DialogHeader>
 				<hr />
 				<form onSubmit={onSubmit}>
-					<div onSubmit={onSubmit} className="grid gap-4 py-4">
+					<div onSubmit={onSubmit} className='grid gap-4 py-4'>
 						{/* title */}
-						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="task" className="text-right">
+						<div className='grid grid-cols-4 items-center gap-4'>
+							<Label htmlFor='task' className='text-right'>
 								Task
 							</Label>
-							<Input onBlur={(e) => setTask(e.target.value)} id="task" placeholder="New task" className="col-span-3" />
+							<Input onBlur={(e) => setTask(e.target.value)} id='task' placeholder='New task' className='col-span-3' />
 						</div>
 						{/* priority */}
-						<div className="grid grid-cols-4 items-center gap-4">
-							<Label className="text-right">
-								Priority
-							</Label>
+						<div className='grid grid-cols-4 items-center gap-4'>
+							<Label className='text-right'>Priority</Label>
 							<Select onValueChange={(value) => setPriority(value)}>
-								<SelectTrigger className="w-[280px]">
-									<SelectValue placeholder="Priority" />
+								<SelectTrigger className='w-[280px]'>
+									<SelectValue placeholder='Priority' />
 								</SelectTrigger>
 								<SelectContent>
-									<SelectItem value="high">High</SelectItem>
-									<SelectItem value="medium">Medium</SelectItem>
-									<SelectItem value="low">Low</SelectItem>
+									<SelectItem value='high'>High</SelectItem>
+									<SelectItem value='medium'>Medium</SelectItem>
+									<SelectItem value='low'>Low</SelectItem>
 								</SelectContent>
 							</Select>
 						</div>
 						{/* description */}
-						<div className="grid grid-cols-4 items-center gap-4">
-							<Label htmlFor="description" className="text-right">
+						<div className='grid grid-cols-4 items-center gap-4'>
+							<Label htmlFor='description' className='text-right'>
 								Description
 							</Label>
 							<Input
 								onBlur={(e) => setDescription(e.target.value)}
-								id="description"
-								placeholder="Description"
-								className="col-span-3"
+								id='description'
+								placeholder='Description'
+								className='col-span-3'
 							/>
 						</div>
 					</div>
 					<div>
 						<DialogClose asChild>
-							<Button type="submit" className="ml-auto block">
+							<Button type='submit' className='ml-auto block'>
 								Save changes
 							</Button>
 						</DialogClose>
