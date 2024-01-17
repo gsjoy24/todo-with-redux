@@ -16,6 +16,7 @@ import { addTodo } from '@/redux/features/todoSlice';
 
 const AddTodoModal = () => {
 	const [task, setTask] = useState('');
+	const [priority, setPriority] = useState('');
 	const [description, setDescription] = useState('');
 	const dispatch = useAppDispatch();
 
@@ -23,7 +24,7 @@ const AddTodoModal = () => {
 		e.preventDefault();
 		// const id = Math.random().toString(36).slice(2, 7);
 		// dispatch(addTodo({ id, title: task, description }));
-		dispatch(addTodo({ title: task, description }));
+		dispatch(addTodo({ title: task, priority, description }));
 	};
 
 	return (
@@ -39,12 +40,26 @@ const AddTodoModal = () => {
 				<hr />
 				<form onSubmit={onSubmit}>
 					<div onSubmit={onSubmit} className="grid gap-4 py-4">
+						{/* title */}
 						<div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="task" className="text-right">
 								Task
 							</Label>
 							<Input onBlur={(e) => setTask(e.target.value)} id="task" placeholder="New task" className="col-span-3" />
 						</div>
+						{/* priority */}
+						<div className="grid grid-cols-4 items-center gap-4">
+							<Label htmlFor="priority" className="text-right">
+								Priority
+							</Label>
+							<Input
+								onBlur={(e) => setPriority(e.target.value)}
+								id="priority"
+								placeholder="Priority"
+								className="col-span-3"
+							/>
+						</div>
+						{/* description */}
 						<div className="grid grid-cols-4 items-center gap-4">
 							<Label htmlFor="description" className="text-right">
 								Description

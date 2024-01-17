@@ -2,8 +2,8 @@ import { useAppSelector } from '@/redux/hook';
 import AddTodoModal from './AddTodoModal';
 import TodoCard from './TodoCard';
 import TodoFilter from './TodoFilter';
-import { Button } from '../ui/button';
 import { useGetTodosQuery } from '@/redux/api/api';
+import TTodo from '@/interfaces/TTodo';
 
 const TodoContainer = () => {
 	// const { todos } = useAppSelector((state) => state.todos);
@@ -27,7 +27,7 @@ const TodoContainer = () => {
 					</div>
 				) : (
 					<>
-						{todos.map((todo) => {
+						{todos.map((todo: TTodo) => {
 							return <TodoCard key={todo._id} todo={todo} />;
 						})}
 					</>

@@ -8,7 +8,14 @@ export const baseApi = createApi({
 				url: '/todos',
 				method: 'GET'
 			})
-		})
+		}),
+		addTodo: builder.query({
+			query: (data) => ({
+				url: '/todos',
+				method: 'POST',
+				body: data
+			})
+		}),
 	})
 });
 
