@@ -8,6 +8,7 @@ type TInitialState = {
 const initialState: TInitialState = {
 	todos: []
 };
+
 const todoSlice = createSlice({
 	name: 'todo',
 	initialState,
